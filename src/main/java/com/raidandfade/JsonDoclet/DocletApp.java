@@ -6,7 +6,9 @@ import com.sun.javadoc.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.ref.Reference;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class DocletApp {
@@ -14,22 +16,17 @@ public class DocletApp {
     private final File outputDirectory;
 
     public DocletApp(RootDoc root) {
-        String outputDirectory = "docs";
+        AtomicReference<File> outputDirectory = new AtomicReference<>(new File("docs"));
 
-        List<List<String>> optionList = Arrays.stream(root.options())
-                .map(Arrays::asList)
-                .collect(Collectors.toList());
-
-        for(Iterator<List<String>> iterator = optionList.iterator(); iterator.hasNext(); ) {
-            List<String> keyValues = iterator.next();
-            String key = keyValues.get(0);
-            if ("-d".equals(key)) {
-                outputDirectory = keyValues.get(1);
+        ArgParser.parseArguments(new ArgParser.ArgumentHandler() {
+            @Override
+            public void setOutputDirectory(File dir) {
+                outputDirectory.set(dir);
             }
-        }
+        }, root.options());
 
         this.root = root;
-        this.outputDirectory = new File(outputDirectory);
+        this.outputDirectory = outputDirectory.get();
     }
 
     public boolean start() throws Exception {

@@ -1,11 +1,7 @@
 package com.raidandfade.JsonDoclet;
 
 import com.sun.javadoc.*;
-import com.google.gson.*;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -17,8 +13,9 @@ public class Main {
 
         for (Iterator<String> iterator = args.iterator(); iterator.hasNext(); ) {
             String key = iterator.next();
-            if ("-d".equals(key)) {
-                optionCount += 2;
+            ArgParser.ArgumentDefine argumentDefine = ArgParser.DEFINE_MAP.get(key);
+            if (argumentDefine != null) {
+                optionCount += 1 + argumentDefine.getValueCount();
             }
         }
 

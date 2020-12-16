@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'kr.jclab.javautils'
-version '1.0.0-SNAPSHOT'
+version '1.0.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
 

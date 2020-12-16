@@ -1,5 +1,7 @@
 # javadoc-json-doclet
 
+forked from [RaidAndFade/javadoc-json-doclet](https://github.com/RaidAndFade/javadoc-json-doclet)
+
 Json Doclet for Javadoc (Turn regular JavaDoc Comments into json using the `javadoc` command and the `Gson` library)
 
 ## What's it do?

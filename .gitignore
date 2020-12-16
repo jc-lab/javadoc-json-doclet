@@ -22,3 +22,9 @@ hs_err_pid*
 
 javasrc/*
 docs/*
+
+build
+.gradle
+
+# Jetbrains
+.idea
